@@ -10,7 +10,7 @@
             (factory(global));
 }(this, (function (exports) {
     var VR = function (scene, renderer, container, cameraPara, cameraPosition) {
-        console.log('version 1.2.17')
+        console.log('version 1.2.18')
         this.scene = scene;
         this.renderer = renderer;
         this.container = container;
@@ -2303,6 +2303,7 @@
             },{
                 'innerHTML':AVR.playerIcon.playSvg,
             });
+
             toolbar.appendChild(btn);
             var timeInfo = this.createTag('div', {
                 'style': 'position:inherit;bottom:0.5rem;left:2.8rem;color:#fff;font-size:0.75rem'
