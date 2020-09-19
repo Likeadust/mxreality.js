@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>增强现实</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        a {
+            color: #ffffff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button id="takePhoto" style="position: absolute;bottom:10px;left: 50%">takePhoto</button>
+    <div id="container"></div>
+    <script src="../build/three.js"></script>
+    <script src="../build/mxreality.js?id=cc"></script>
+    <script>
+
+        window.onload = function () {
+            init();//初始化
+        }
+        function init() {
+
+            var video = AVR.createTag('video', {
+                'webkit-playsinline': true,
+                'playsinline': true,
+                'preload': 'auto',
+                'x-webkit-airplay': 'allow',
+                //'x5-playsinline': true,
+                'x5-video-player-type': 'h5',
+                'x5-video-player-fullscreen': true,
+                'x5-video-orientation': 'portrait',
+                'style': 'object-fit: fill',
+                'loop': "loop"
+            }, {
+                'allowsInlineMediaPlayback': true,
+                'crossOrigin': "Anonymous"
+            });
+            video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+
+            var scene, renderer;
+            var container, mesh;
+            container = document.getElementById('container');
+            renderer = new THREE.WebGLRenderer();
+            scene = new THREE.Scene();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            scene = new THREE.Scene();
+
+            var texture = new THREE.VideoTexture(video);
+            texture.generateMipmaps = false;
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            //texture.format = THREE.RGBFormat;
+            texture.format = THREE.RGBAFormat;
+            material = new THREE.MeshBasicMaterial({
+                overdraw: true,
+                map: texture
+            });
+            var phiStart = -Math.PI / 2;
+            var geometry = new THREE.SphereBufferGeometry(10, 10, 10, phiStart);
+            geometry.scale(-1, 1, 1); //x取反（面朝里）
+            mesh = new THREE.Mesh(geometry, material);
+            mesh.visible = true;
+            mesh.name = "__mxrealityDefault";
+
+            scene.add(mesh);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
