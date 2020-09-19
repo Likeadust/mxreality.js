@@ -821,10 +821,7 @@
                 that.video.buffTimer = null;
 
                 function canplayThrough(e) {
-                    alert('canplayThrough');
-                    alert(that.video.buffTimer);
                     if (!that.video.buffTimer) {
-                        alert('ok');
                         clearInterval(that.timerList.videoBuffTimer);
                         that.timerList.videoBuffTimer = that.video.buffTimer = setInterval(function (e) {
                             var allBuffered = 0;

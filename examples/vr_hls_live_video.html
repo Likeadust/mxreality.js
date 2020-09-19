@@ -66,6 +66,11 @@
         vr.video.onended=function () {
         }
 
+        document.body.addEventListener('click',function(){
+            alert('sss');
+            vr.VRObject.getObjectByName("__mxrealityDefault").visible=true;
+        });
+
     }
 
 
