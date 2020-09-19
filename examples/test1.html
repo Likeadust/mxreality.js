@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <button id="takePhoto" style="position: absolute;bottom:10px;left: 50%">takePhoto</button>
+    <button id="paly" style="position: absolute;bottom:10px;left: 50%">play</button>
     <div id="container"></div>
     <script src="../build/three.js"></script>
     <script src="../build/mxreality.js?id=cc"></script>
@@ -51,6 +51,10 @@
             video.addEventListener('loadedmetadata', function () {
                 video.play();
             });
+
+            document.getElementById('play').addEventListener('click',function(){
+                video.play();
+            })
 
             var scene, renderer;
             var container, mesh;
