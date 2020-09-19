@@ -837,11 +837,11 @@
                     }
                 }
                 var texture = new THREE.VideoTexture(video);
-                texture.generateMipmaps = false;
-                texture.minFilter = THREE.LinearFilter;
-                texture.magFilter = THREE.LinearFilter;
+                //texture.generateMipmaps = false;
+                //texture.minFilter = THREE.LinearFilter;
+                //texture.magFilter = THREE.LinearFilter;
                 //texture.format = THREE.RGBFormat;
-                texture.format = THREE.RGBAFormat;
+                //texture.format = THREE.RGBAFormat;
                 buildTexture(texture);
 
                 clearInterval(that.timerList.videoProgressTimer);
@@ -866,7 +866,7 @@
             function buildTexture(texture, isImg) {
                 isImg = isImg || false;
                 material = new THREE.MeshBasicMaterial({
-                    overdraw: true,
+                    //overdraw: true,
                     map: texture
                 });
                 var obj = that.VRObject.getObjectByName("__mxrealityDefault");
