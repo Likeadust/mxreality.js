@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <button id="paly" style="position: absolute;bottom:10px;left: 50%">play</button>
+    <button id="play" style="position: absolute;bottom:10px;left: 50%">play</button>
     <div id="container"></div>
     <script src="../build/three.js"></script>
     <script src="../build/mxreality.js?id=cc"></script>
@@ -52,7 +52,7 @@
                 video.play();
             });
 
-            document.getElementById('play').addEventListener('click',function(){
+            document.getElementById('play').addEventListener('click', function () {
                 video.play();
             })
 
@@ -84,6 +84,20 @@
             mesh.name = "__mxrealityDefault";
 
             scene.add(mesh);
+
+            function fender() {
+                var width = container.offsetWidth;
+                var height = container.offsetHeight;
+                camera.aspect = width / height;
+                renderer.setSize(width, height);
+                renderer.setClearColor(new THREE.Color(0xffffff));
+                renderer.render(that.scene, that.camera);
+                camera.updateProjectionMatrix();
+            }
+            function animate() {
+                render();
+                requestAnimationFrame(animate);
+            }
 
         }
 
