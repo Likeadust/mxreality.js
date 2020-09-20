@@ -2,28 +2,18 @@
 <html lang="en">
 
 <head>
-    <title>增强现实</title>
+    <title>测试</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
-        body {
-            background-color: #000000;
-            margin: 0px;
-            padding: 0px;
-            overflow: hidden;
-        }
-
-        a {
-            color: #ffffff;
-        }
     </style>
 
 </head>
 
 <body>
-    <button id="play" style="position: absolute;bottom:10px;left: 50%">play</button>
-    <div id="container"></div>
-    <script src="../build/three.js"></script>
+    <div id="container" style="width: 500px;height:500px;"></div>
+
+    <script src="../build/three.min.js"></script>
     <script src="../build/mxreality.js?id=cc"></script>
     <script>
 
@@ -42,7 +32,8 @@
                 'x5-video-player-fullscreen': true,
                 'x5-video-orientation': 'portrait',
                 'style': 'object-fit: fill',
-                'loop': "loop"
+                'loop': "loop",
+                'controls': true
             }, {
                 'allowsInlineMediaPlayback': true,
                 'crossOrigin': "Anonymous"
@@ -51,8 +42,9 @@
             video.addEventListener('loadedmetadata', function () {
                 video.play();
             });
+            document.body.appendChild(video);
 
-            document.getElementById('play').addEventListener('click', function () {
+            document.body.addEventListener('click', function () {
                 video.play();
             })
 
@@ -62,43 +54,57 @@
             renderer = new THREE.WebGLRenderer();
             scene = new THREE.Scene();
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
             container.appendChild(renderer.domElement);
-            scene = new THREE.Scene();
+
+            var camera = new THREE.PerspectiveCamera(80, container.innerWidth / container.innerHeight, 0.01, 1000);
+            //camera.lookAt({ 'x': 0, 'y': 0, 'z': 0 });
+
+            camera.position.set(0, 0, 0.01);
+            scene.add(camera);
 
             var texture = new THREE.VideoTexture(video);
-            texture.generateMipmaps = false;
-            texture.minFilter = THREE.LinearFilter;
-            texture.magFilter = THREE.LinearFilter;
+            //texture.generateMipmaps = false;
+            //texture.minFilter = THREE.LinearFilter;
+            //texture.magFilter = THREE.LinearFilter;
             //texture.format = THREE.RGBFormat;
-            texture.format = THREE.RGBAFormat;
+            //texture.format = THREE.RGBAFormat;
             material = new THREE.MeshBasicMaterial({
                 overdraw: true,
-                map: texture
+                map: texture,
+                side: 2,
+                //color: 0xababab
+            });
+            material = new THREE.MeshBasicMaterial({
+                //overdraw: true,
+                map: texture,
+                side: 2,
+                //color:0xababab
             });
             var phiStart = -Math.PI / 2;
             var geometry = new THREE.SphereBufferGeometry(10, 10, 10, phiStart);
-            geometry.scale(-1, 1, 1); //x取反（面朝里）
+            //geometry.scale(-1, 1, 1); //x取反（面朝里）
             mesh = new THREE.Mesh(geometry, material);
             mesh.visible = true;
             mesh.name = "__mxrealityDefault";
 
             scene.add(mesh);
 
-            function fender() {
+
+            function render() {
                 var width = container.offsetWidth;
                 var height = container.offsetHeight;
                 camera.aspect = width / height;
                 renderer.setSize(width, height);
-                renderer.setClearColor(new THREE.Color(0xffffff));
-                renderer.render(that.scene, that.camera);
+                renderer.setClearColor(new THREE.Color(0x000000));
+                renderer.render(scene, camera);
                 camera.updateProjectionMatrix();
             }
             function animate() {
                 render();
                 requestAnimationFrame(animate);
             }
-
+            animate();
         }
 
     </script>
