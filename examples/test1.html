@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <video controls='true' src="http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8" id="video"></video>
     <div id="container" style="width: 500px;height:500px;"></div>
 
     <script src="../build/three.js"></script>
@@ -22,12 +23,12 @@
         }
         function init() {
 
-            var video = AVR.createTag('video', {
+            /*var video = AVR.createTag('video', {
                 'webkit-playsinline': true,
                 'playsinline': true,
                 'preload': 'auto',
                 'x-webkit-airplay': 'allow',
-                'x5-playsinline': true,
+                //'x5-playsinline': true,
                 'x5-video-player-type': 'h5',
                 'x5-video-player-fullscreen': true,
                 'x5-video-orientation': 'portrait',
@@ -38,12 +39,14 @@
                 'allowsInlineMediaPlayback': true,
                 'crossOrigin': "Anonymous"
             });
-            video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';
+            document.body.appendChild(video);
+            video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';*/
+            var video=document.getElementById('video');
             //video.src='360.mp4';
             video.addEventListener('loadedmetadata', function () {
                 video.play();
             });
-            document.body.appendChild(video);
+            
 
             document.body.addEventListener('click', function () {
                 video.play();
