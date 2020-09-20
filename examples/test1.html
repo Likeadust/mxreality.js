@@ -35,13 +35,13 @@
                 'style': 'object-fit: fill',
                 'loop': "loop",
                 'controls': true,
-                'type':'application/vnd.apple.mpegurl',
             }, {
                 'allowsInlineMediaPlayback': true,
                 'crossOrigin': "Anonymous"
             });
             document.body.appendChild(video);
             video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';
+            video.type="application/x-mpegURL";
             
             //video.src='360.mp4';
             video.addEventListener('loadedmetadata', function () {
