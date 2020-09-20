@@ -27,7 +27,7 @@
                 'playsinline': true,
                 'preload': 'auto',
                 'x-webkit-airplay': 'allow',
-                //'x5-playsinline': true,
+                'x5-playsinline': true,
                 'x5-video-player-type': 'h5',
                 'x5-video-player-fullscreen': true,
                 'x5-video-orientation': 'portrait',
@@ -38,8 +38,8 @@
                 'allowsInlineMediaPlayback': true,
                 'crossOrigin': "Anonymous"
             });
-            //video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';
-            video.src='360.mp4';
+            video.src = 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8';
+            //video.src='360.mp4';
             video.addEventListener('loadedmetadata', function () {
                 video.play();
             });
